@@ -1,3 +1,7 @@
+#可以通过以下网址访问
+https://lililili-yuki.github.io/lu/
+鹿，是高贵且神圣的
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
