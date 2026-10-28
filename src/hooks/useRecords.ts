@@ -33,9 +33,11 @@ export function useRecords() {
       ...record,
       id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     };
-    setRecords((prev) => [...prev, newRecord]);
+    const next = [...records, newRecord];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    setRecords(next);
     return newRecord;
-  }, []);
+  }, [records]);
 
   const updateRecord = useCallback((id: string, updates: Partial<DeerRecord>) => {
     setRecords((prev) =>
@@ -113,3 +115,4 @@ export function useRecords() {
     getAllTimeStats,
   };
 }
+

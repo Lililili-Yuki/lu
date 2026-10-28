@@ -4,13 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Pause, Square, RotateCcw } from 'lucide-react';
 
 interface TimerProps {
-  onRecord: (duration: number) => void;
+  onRecord: (duration: number, startedAt?: string) => void;
 }
 
 export function Timer({ onRecord }: TimerProps) {
-  const [isRunning, setIsRunning] = useState(false);
-  const [startTime, setStartTime] = useState<number | null>(null);
-  const [elapsed, setElapsed] = useState(0);
+  const [saved] = useState(() => { try { return JSON.parse(localStorage.getItem('deer-timer') || 'null'); } catch { return null; } });
+  const [startedAt, setStartedAt] = useState<string | null>(saved?.startedAt || null);
+  const [isRunning, setIsRunning] = useState(Boolean(saved?.running));
+  const [startTime, setStartTime] = useState<number | null>(saved?.startTime || null);
+  const [elapsed, setElapsed] = useState<number>(saved?.elapsed || 0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -31,25 +33,33 @@ export function Timer({ onRecord }: TimerProps) {
     };
   }, [isRunning, startTime]);
 
+  useEffect(() => {
+    localStorage.setItem('deer-timer', JSON.stringify({ running: isRunning, startTime, elapsed, startedAt }));
+  }, [isRunning, startTime, elapsed, startedAt]);
+
   const handleStart = () => {
+    if (!startedAt) setStartedAt(new Date().toISOString());
     setIsRunning(true);
     setStartTime(Date.now() - elapsed * 1000);
   };
 
   const handlePause = () => {
+    if (startTime) setElapsed(Math.floor((Date.now() - startTime) / 1000));
     setIsRunning(false);
   };
 
   const handleStop = () => {
-    if (elapsed > 0) {
-      onRecord(elapsed);
-    }
+    const duration = isRunning && startTime ? Math.floor((Date.now() - startTime) / 1000) : elapsed;
+    try { if (duration > 0) onRecord(duration, startedAt || undefined); } catch { return; }
+    setStartedAt(null);
     setIsRunning(false);
     setStartTime(null);
     setElapsed(0);
   };
 
   const handleReset = () => {
+    if (!window.confirm('确定放弃当前计时？')) return;
+    setStartedAt(null);
     setIsRunning(false);
     setStartTime(null);
     setElapsed(0);
@@ -81,7 +91,7 @@ export function Timer({ onRecord }: TimerProps) {
           </p>
         </div>
 
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-3">
           {!isRunning ? (
             <Button
               size="lg"
@@ -128,3 +138,4 @@ export function Timer({ onRecord }: TimerProps) {
     </Card>
   );
 }
+

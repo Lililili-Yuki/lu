@@ -1,3 +1,6 @@
+import { CheckIn } from '@/components/CheckIn';
+import { Match } from '@/components/Match';
+import { localDay } from '@/lib/date';
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Toaster, toast } from 'sonner';
@@ -18,13 +21,14 @@ function App() {
 
   const [activeTab, setActiveTab] = useState('timer');
 
-  const handleRecord = (duration: number) => {
+  const handleRecord = (duration: number, startedAt?: string) => {
     const now = new Date();
-    const dateStr = now.toISOString().split('T')[0];
+    const dateStr = localDay(now);
     
+    try {
     const record = addRecord({
       date: dateStr,
-      startTime: new Date(now.getTime() - duration * 1000).toISOString(),
+      startTime: startedAt || new Date(now.getTime() - duration * 1000).toISOString(),
       endTime: now.toISOString(),
       duration,
     });
@@ -34,6 +38,7 @@ function App() {
         description: `时长: ${formatDurationForToast(duration)}`,
       });
     }
+    } catch { toast.error('记录保存失败，请检查存储空间后重试'); throw new Error('记录保存失败'); }
   };
 
   const formatDurationForToast = (seconds: number): string => {
@@ -89,7 +94,7 @@ function App() {
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-4 w-full">
+          <TabsList className="grid grid-cols-5 w-full">
             <TabsTrigger value="timer" className="flex items-center gap-2">
               <TimerIcon className="w-4 h-4" />
               <span className="hidden sm:inline">计时</span>
@@ -106,9 +111,11 @@ function App() {
               <History className="w-4 h-4" />
               <span className="hidden sm:inline">历史</span>
             </TabsTrigger>
+            <TabsTrigger value="match">匹配</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="timer" className="space-y-6">
+          <TabsContent value="timer" forceMount hidden={activeTab !== 'timer'} className="space-y-6">
+            <CheckIn />
             <Timer onRecord={handleRecord} />
             
             {/* Quick Stats */}
@@ -134,6 +141,7 @@ function App() {
             </div>
           </TabsContent>
 
+          <TabsContent value="match" forceMount hidden={activeTab !== 'match'}><Match onRecord={handleRecord} /></TabsContent>
           <TabsContent value="calendar">
             <Calendar records={records} />
           </TabsContent>
@@ -159,3 +167,4 @@ function App() {
 }
 
 export default App;
+

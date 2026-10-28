@@ -1,3 +1,4 @@
+import { localDay } from '@/lib/date';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { DeerRecord } from '@/types';
 import { Trophy, Clock, Calendar, TrendingUp } from 'lucide-react';
@@ -39,7 +40,7 @@ export function Stats({ records }: StatsProps) {
     maxStreak = Math.max(maxStreak, streak);
     
     // Current streak (from today backwards)
-    const today = new Date().toISOString().split('T')[0];
+    const today = localDay();
     const hasRecordToday = sortedDates.includes(today);
     
     if (hasRecordToday) {
@@ -49,7 +50,7 @@ export function Stats({ records }: StatsProps) {
       for (let i = 1; i <= 365; i++) {
         const checkDate = new Date(todayDate);
         checkDate.setDate(checkDate.getDate() - i);
-        const checkDateStr = checkDate.toISOString().split('T')[0];
+        const checkDateStr = localDay(checkDate);
         
         if (sortedDates.includes(checkDateStr)) {
           currentStreak++;
@@ -211,3 +212,4 @@ export function Stats({ records }: StatsProps) {
     </div>
   );
 }
+
