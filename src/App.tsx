@@ -1,4 +1,5 @@
 import { ForestDeer } from '@/components/ForestDeer';
+import { slogans } from '@/lib/slogans';
 import { CheckIn } from '@/components/CheckIn';
 import { Match } from '@/components/Match';
 import { localDay } from '@/lib/date';
@@ -21,6 +22,7 @@ function App() {
   } = useRecords();
 
   const [activeTab, setActiveTab] = useState('timer');
+  const [slogan] = useState(() => slogans[Math.floor(Math.random() * slogans.length)]);
 
   const handleRecord = (duration: number, startedAt?: string) => {
     const now = new Date();
@@ -95,7 +97,7 @@ function App() {
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-6">
         <section className="forest-welcome">
-          <div><span className="forest-eyebrow"><Leaf size={14}/> YOUR LITTLE FOREST</span><h2>慢一点，<br/>和小鹿一起记录生活。</h2><p>把片刻留在这里，让每一天都有迹可循。</p><span className="forest-date">{new Date().toLocaleDateString('zh-CN', {month:'long',day:'numeric',weekday:'long'})}</span></div>
+          <div><span className="forest-eyebrow"><Leaf size={14}/> YOUR LITTLE FOREST</span><h2>{slogan[0]}<br/>{slogan[1]}</h2><p>把片刻留在这里，让每一天都有迹可循。</p><span className="forest-date">{new Date().toLocaleDateString('zh-CN', {month:'long',day:'numeric',weekday:'long'})}</span></div>
           <ForestDeer />
         </section>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
