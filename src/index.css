@@ -116,3 +116,59 @@
 .timer-glow {
   text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
 }
+:root {
+  --background: 48 33% 96%; --foreground: 133 14% 25%;
+  --card: 60 33% 99%; --card-foreground: 133 14% 25%;
+  --popover: 60 33% 99%; --popover-foreground: 133 14% 25%;
+  --primary: 136 19% 39%; --primary-foreground: 60 33% 98%;
+  --secondary: 91 22% 91%; --secondary-foreground: 133 14% 25%;
+  --muted: 93 22% 92%; --muted-foreground: 126 8% 43%;
+  --accent: 91 25% 89%; --accent-foreground: 133 14% 25%;
+  --border: 98 17% 86%; --input: 98 17% 86%; --ring: 136 19% 39%;
+  --radius: 1.1rem;
+}
+body { font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.forest-app { background: #f7f7ef; }
+.forest-header { border-bottom: 1px solid #e3e7da; background: #f7f7ef; }
+.forest-header h1 { letter-spacing: .05em; font-size: 19px; }
+.forest-header p { font-size: 10px; letter-spacing: .08em; margin-top: 4px; }
+.forest-welcome { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px 20px 24px; min-height: 260px; }
+.forest-eyebrow { display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .17em; color: #688065; }
+.forest-welcome h2 { font-size: clamp(25px, 3.5vw, 34px); font-weight: 600; line-height: 1.6; letter-spacing: .04em; margin: 12px 0; }
+.forest-welcome p { font-size: 13px; line-height: 1.8; color: #77806e; }
+.forest-date { display: inline-block; font-size: 11px; color: #6d7e61; background: #e9eddf; padding: 6px 12px; border-radius: 20px; margin-top: 16px; }
+.forest-deer { width: 340px; max-width: 44%; flex-shrink: 0; }
+.forest-app [role="tablist"] { background: #e9eddf; border-radius: 16px; height: 55px; padding: 6px; }
+.forest-app [role="tab"] { border-radius: 11px; height: 42px; color: #708066; font-size: 13px; }
+.forest-app [role="tab"][data-state="active"] { background: #fffef9; color: #456343; box-shadow: none; }
+.forest-workspace { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 20px; align-items: stretch; }
+.forest-workspace > section { background: #edf1e3; padding: 26px 20px; border-color: #e1e6d5; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.forest-workspace > section > div:first-child { align-items: flex-start; flex-direction: column; gap: 20px; }
+.forest-workspace > section h2 { font-size: 18px; margin-bottom: 8px; }
+.forest-app [data-slot="card"] { box-shadow: none; border-color: #e3e7da; border-radius: 20px; }
+.forest-timer { background: #fffef9; padding: 12px 0 8px; }
+.forest-timer .text-6xl { font-size: clamp(44px, 6vw, 68px); font-weight: 500; letter-spacing: .03em; margin: 12px 0; font-variant-numeric: tabular-nums; }
+.forest-timer .text-muted-foreground { font-size: 12px; }
+.forest-app button { box-shadow: none; transition: background-color .15s, color .15s; }
+.forest-app button:focus-visible { outline: 2px solid #65895c; outline-offset: 3px; }
+.forest-app .grid-cols-3 > .bg-card { background: #eff0e6; border: 0; border-radius: 16px; padding: 22px 10px; }
+.forest-app .grid-cols-3 > .bg-card:nth-child(2) { background: #f1eadc; }
+.forest-app .grid-cols-3 > .bg-card:nth-child(3) { background: #e5ede3; }
+.forest-app .grid-cols-3 .text-xs { margin-top: 6px; }
+.forest-app footer { border-color: #e3e7da; font-size: 11px; margin-top: 32px; }
+[hidden] { display: none !important; }
+@media(max-width: 640px) {
+  .forest-welcome { padding: 14px 4px 24px; min-height: 225px; gap: 0; position: relative; }
+  .forest-welcome h2 { font-size: 23px; }
+  .forest-welcome p { font-size: 11px; max-width: 190px; }
+  .forest-deer { max-width: 41%; }
+  .forest-eyebrow { font-size: 8px; letter-spacing: .08em; }
+  .forest-workspace { grid-template-columns: 1fr; gap: 16px; }
+  .forest-workspace > section { padding: 20px; }
+  .forest-workspace > section > div:first-child { flex-direction: row; align-items: center; }
+  .forest-app [role="tab"] { gap: 4px; font-size: 11px; }
+  .forest-app [role="tab"] svg { width: 14px; height: 14px; }
+  .forest-header .text-sm { font-size: 11px; }
+  .forest-app [data-slot="card-header"] { flex-wrap: wrap; gap: 12px; }
+}
+@media(prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

@@ -77,9 +77,9 @@ export function Timer({ onRecord }: TimerProps) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full forest-timer">
       <CardHeader>
-        <CardTitle className="text-center text-2xl">🦌 计时器</CardTitle>
+        <CardTitle className="text-center text-lg">留一段时间给自己</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="text-center">
@@ -87,7 +87,7 @@ export function Timer({ onRecord }: TimerProps) {
             {formatTime(elapsed)}
           </div>
           <p className="text-muted-foreground mt-2">
-            {isRunning ? '计时中...' : elapsed > 0 ? '已暂停' : '准备开始'}
+            {isRunning ? '计时中...' : elapsed > 0 ? '已暂停' : '小鹿准备好了，随时开始'}
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function Timer({ onRecord }: TimerProps) {
             <Button
               size="lg"
               onClick={handleStart}
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Play className="w-5 h-5 mr-2" />
               开始
@@ -106,7 +106,7 @@ export function Timer({ onRecord }: TimerProps) {
               size="lg"
               variant="outline"
               onClick={handlePause}
-              className="border-yellow-500 text-yellow-600 hover:bg-yellow-50"
+              className="border-primary/30 text-primary hover:bg-muted"
             >
               <Pause className="w-5 h-5 mr-2" />
               暂停
@@ -118,7 +118,7 @@ export function Timer({ onRecord }: TimerProps) {
             variant="outline"
             onClick={handleStop}
             disabled={elapsed === 0}
-            className="border-red-500 text-red-600 hover:bg-red-50"
+            className="border-primary/30 text-primary hover:bg-muted"
           >
             <Square className="w-5 h-5 mr-2" />
             结束并记录
