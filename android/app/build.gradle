@@ -1,0 +1,12 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'io.github.lilililiyuki.lu'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'io.github.lilililiyuki.lu'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '0.1.0-preview'
+    }
+}
