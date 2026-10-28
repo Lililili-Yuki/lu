@@ -2,13 +2,14 @@
 
 一款以小鹿和森林为主题的轻量记录工具。用计时、打卡和日历，把每一次时长与日常变化留在自己的设备里。
 
-[打开网页版](https://lililili-yuki.github.io/lu/) · [下载 Android APK](https://github.com/Lililili-Yuki/lu/releases/download/android-v0.1.0-preview/deer-days-0.1.0-preview.apk) · [发布记录](https://github.com/Lililili-Yuki/lu/releases) · [APK 构建进度](https://github.com/Lililili-Yuki/lu/actions/workflows/android-apk.yml)
+[打开网页版](https://lililili-yuki.github.io/lu/) · [下载 Android APK](https://github.com/Lililili-Yuki/lu/releases/download/android-v0.2.0-preview/deer-days-0.2.0-preview.apk) · [发布记录](https://github.com/Lililili-Yuki/lu/releases) · [APK 构建进度](https://github.com/Lililili-Yuki/lu/actions/workflows/android-apk.yml)
 
 ## 功能
 
 - **时长记录**：开始、暂停、继续和结束计时，保存每次的开始时间及有效时长；刷新页面、切换功能标签后可恢复计时。
 - **每日打卡**：每天打卡一次，查看连续天数、累计天数及最近七天的打卡情况。
 - **日历与历史**：按日期回看记录、当天次数和累计时长，支持删除单条历史。
+- **个人排名**：按单次时长从长到短排列自己的记录，显示名次、时长、记录日期及起止时间；相同时长并列排名。
 - **统计汇总**：查看记录次数、总时长、平均时长、活跃天数和月度数据。
 - **双人匹配**：匿名配对在线鹿友，同时开始计时，双方结束后比较本场时长；支持取消、退出、刷新恢复及离线结算。
 - **清新界面**：奶油白与森林绿配色、扁平小鹿插画、手机自适应布局，首页大标语每次打开随机展示。
@@ -16,7 +17,7 @@
 
 ## Android 预览版
 
-Android 0.1.0 预览版已发布，APK 与 SHA-256 校验文件可在 [发布页](https://github.com/Lililili-Yuki/lu/releases/tag/android-v0.1.0-preview) 下载。已通过编译、Android Lint 和 APK 签名校验。Android 工程和自动构建流程位于本仓库。
+Android 0.2.0 预览版已发布，APK 与 SHA-256 校验文件可在 [发布页](https://github.com/Lililili-Yuki/lu/releases/tag/android-v0.2.0-preview) 下载。已通过编译、Android Lint 和 APK 签名校验。Android 工程和自动构建流程位于本仓库。
 
 支持 Android 6.0 及以上。应用内置网页资源，离线可使用计时、打卡和记录查看；真人匹配需要联网。手机应用与浏览器中的数据各自保存，不会自动同步。
 

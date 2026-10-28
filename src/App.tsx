@@ -1,4 +1,5 @@
 import { ForestDeer } from '@/components/ForestDeer';
+import { RecordRanking } from '@/components/RecordRanking';
 import { slogans } from '@/lib/slogans';
 import { CheckIn } from '@/components/CheckIn';
 import { Match } from '@/components/Match';
@@ -11,7 +12,7 @@ import { Calendar } from '@/components/Calendar';
 import { Stats } from '@/components/Stats';
 import { HistoryList } from '@/components/HistoryList';
 import { useRecords } from '@/hooks/useRecords';
-import { Timer as TimerIcon, BarChart3, CalendarDays, History, Users, Leaf } from 'lucide-react';
+import { Timer as TimerIcon, BarChart3, CalendarDays, History, Users, Leaf, Trophy } from 'lucide-react';
 
 function App() {
   const {
@@ -101,7 +102,7 @@ function App() {
           <ForestDeer />
         </section>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-5 w-full">
+          <TabsList className="grid grid-cols-6 w-full">
             <TabsTrigger value="timer" className="flex items-center gap-2">
               <TimerIcon className="w-4 h-4" />
               <span className="nav-label">计时</span>
@@ -118,6 +119,7 @@ function App() {
               <History className="w-4 h-4" />
               <span className="nav-label">历史</span>
             </TabsTrigger>
+            <TabsTrigger value="ranking" className="flex items-center gap-2"><Trophy className="w-4 h-4" /><span className="nav-label">排名</span></TabsTrigger>
             <TabsTrigger value="match" className="flex items-center gap-2"><Users className="w-4 h-4" /><span className="nav-label">匹配</span></TabsTrigger>
           </TabsList>
 
@@ -156,6 +158,7 @@ function App() {
             <Stats records={records} />
           </TabsContent>
 
+          <TabsContent value="ranking"><RecordRanking records={records} /></TabsContent>
           <TabsContent value="history">
             <HistoryList records={records} onDelete={handleDelete} />
           </TabsContent>

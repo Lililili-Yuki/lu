@@ -38,16 +38,16 @@ jobs:
         run: |
           APK=android/app/build/outputs/apk/debug/app-debug.apk
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
-          cp "$APK" deer-days-0.1.0-preview.apk
-          sha256sum deer-days-0.1.0-preview.apk > SHA256SUMS.txt
+          cp "$APK" deer-days-0.2.0-preview.apk
+          sha256sum deer-days-0.2.0-preview.apk > SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: deer-days-android-preview
           path: |
-            deer-days-0.1.0-preview.apk
+            deer-days-0.2.0-preview.apk
             SHA256SUMS.txt
       - name: Publish preview release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create android-v0.1.0-preview deer-days-0.1.0-preview.apk SHA256SUMS.txt --prerelease --target "$GITHUB_SHA" --title "鹿间记录 Android 0.1.0 预览版" --notes "Android 6.0 及以上。内置离线界面，支持计时、打卡、日历及统计。匹配需要联网。此包为调试签名预览版，未完成真机验收；手机与浏览器数据独立。后端访问仍可能受网络限制。后续更换签名时可能需要卸载重装，卸载会清除本地记录。"
+          gh release create android-v0.2.0-preview deer-days-0.2.0-preview.apk SHA256SUMS.txt --prerelease --target "$GITHUB_SHA" --title "鹿间记录 Android 0.2.0 预览版" --notes "Android 6.0 及以上。内置离线界面，支持计时、打卡、日历、统计和个人记录排名，排名显示时长、日期及起止时间。匹配需要联网。此包为调试签名预览版，未完成真机验收；手机与浏览器数据独立。后端访问仍可能受网络限制。本次使用独立生成的调试签名，无法保证覆盖安装 0.1.0。请勿为升级而直接卸载已有应用：卸载会清除本地记录，目前没有旧版数据迁移功能。"
