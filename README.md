@@ -1,77 +1,34 @@
-#可以通过以下网址访问
-https://lililili-yuki.github.io/lu/
-鹿，是高贵且神圣的
+# 🦌 鹿记录器
 
-# React + TypeScript + Vite
+一个用于记录每次时长、查看历史与统计数据的轻量网页工具，帮助你了解自己的使用情况。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[打开在线版本](https://lililili-yuki.github.io/lu/)
 
-Currently, two official plugins are available:
+## 当前功能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **单次计时**：支持开始、暂停、继续、重置，结束后保存本次时长。
+- **历史记录**：查看每次记录的时间和时长，支持删除记录。
+- **日历查看**：按日期浏览记录，查看当天次数、累计时长和单次详情。
+- **数据统计**：汇总记录次数、总时长、平均时长及月度数据。
+- **本地存储**：历史数据保存在当前浏览器中，方便随时回顾。
 
-## React Compiler
+## 新增功能（本地已开发，尚未发布）
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **计时恢复**：刷新或切换功能标签后继续计时，暂停期间不累计时长。
+- **每日打卡**：每天打卡一次，显示连续天数、累计天数和最近七天的打卡情况。
+- **双人匹配比拼**：匿名配对在线用户，同步开始计时，双方结束后比较时长，成绩记入个人历史。
+- **匹配状态管理**：支持等待、取消、退出、刷新恢复和断线处理，由服务端统一计算比赛时长。
 
-## Expanding the ESLint configuration
+新增功能尚未同步到本仓库及在线版本。联网匹配需要单独部署后端，GitHub Pages 仅能提供前端页面。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 使用方式
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. 点击「开始」计时，需要休息时点击「暂停」。
+2. 点击「结束并记录」保存本次时长。
+3. 在「日历」「统计」「历史」查看记录与汇总信息。
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 数据说明
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+数据保存在当前设备的当前浏览器中，不会自动跨设备同步。清除站点数据会删除本地记录。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+比拼成绩仅供娱乐，请按自己的节奏使用。
