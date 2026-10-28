@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 type State = {status: string; name: string; started?: number; elapsed: number; score: number | null; reason?: string; opponent?: {name: string; score: number | null}};
-const base = (import.meta.env.VITE_MATCH_API_URL || '').replace(/\/$/, '');
+const base = (import.meta.env.VITE_MATCH_API_URL ?? (import.meta.env.PROD ? 'https://lu-match-service.spunkykoi259.chatgpt.site' : '')).replace(/\/$/, '');
 export function Match({onRecord}: {onRecord: (duration: number, startedAt?: string) => void}) {
   const available = import.meta.env.DEV || Boolean(base);
   const [token, setToken] = useState(() => sessionStorage.getItem('deer-match') || '');
@@ -12,18 +12,21 @@ export function Match({onRecord}: {onRecord: (duration: number, startedAt?: stri
   const recorded = useRef('');
   async function request(path: string, method = 'GET', auth = token) {
     const response = await fetch(base + '/api/match' + path, {method, headers: {Authorization: 'Bearer ' + auth}, signal: AbortSignal.timeout(8000)});
-    if (!response.ok) throw new Error(response.status === 401 ? '匹配已过期，请重新匹配' : '匹配服务暂不可用，请检查后端是否启动');
-    return response.json();
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || '匹配服务暂不可用，请稍后重试');
+    return data;
   }
   useEffect(() => {
     if (!token || !available) return;
     let active = true;
+    let timer: ReturnType<typeof setTimeout>;
     async function poll() {
-      try { const next = await request(''); if (active) { setState(next); setError(''); } }
+      try { const next = await request(''); if (active) { setState(next); setError(''); if (next.status === 'done') return; } }
       catch (e) { if (active) setError(String(e instanceof Error ? e.message : e)); }
+      if (active) timer = setTimeout(poll, 3000);
     }
-    void poll(); const id = setInterval(poll, 1500);
-    return () => { active = false; clearInterval(id); };
+    void poll();
+    return () => { active = false; clearTimeout(timer); };
   // The token identifies the current anonymous session.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, available]);
@@ -46,7 +49,7 @@ export function Match({onRecord}: {onRecord: (duration: number, startedAt?: stri
   return <section className="bg-card border rounded-xl p-6 space-y-5">
     <h2 className="text-xl font-bold">双人时长比拼</h2>
     <p className="text-sm text-muted-foreground">匿名匹配在线鹿友，配对后同时开始。双方结束后比较有效时长，最长一小时。成绩仅用于娱乐，请按自己的节奏结束。</p>
-    <p className="text-sm text-muted-foreground">{!available ? '当前预览尚未连接匹配服务器，真人匹配暂未开放。计时与打卡可正常使用。' : '匹配服务已配置'}</p>
+    <p className="text-sm text-muted-foreground">{!available ? '当前预览尚未连接匹配服务器，真人匹配暂未开放。计时与打卡可正常使用。' : '真人匹配已开放 · 等待另一位在线鹿友加入'}</p>
     <div aria-live="polite" className="space-y-2">
       {!token && <p>点击匹配，等待另一位在线用户加入。</p>}
       {token && !state && <p>正在连接匹配服务…</p>}
@@ -61,6 +64,6 @@ export function Match({onRecord}: {onRecord: (duration: number, startedAt?: stri
       {state?.status === 'playing' && state.score == null && <Button disabled={busy} onClick={() => action('/stop')}>结束并记录</Button>}
       {token && state?.status !== 'done' && <Button disabled={busy} variant="outline" onClick={() => action('/leave')}>取消 / 退出</Button>}
     </div>
-    <p className="text-xs text-muted-foreground">仅共享匿名昵称和本场成绩，不上传本地历史。离线超过 30 秒自动结束；刷新可恢复当前匹配。</p>
+    <p className="text-xs text-muted-foreground">仅共享匿名昵称和本场成绩，不上传本地历史。离线超过 45 秒自动结束；刷新可恢复当前匹配。</p>
   </section>;
 }
