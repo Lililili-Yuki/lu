@@ -2,7 +2,7 @@
 
 一款以小鹿和森林为主题的轻量记录工具。用计时、打卡和日历，把每一次时长与日常变化留在自己的设备里。
 
-[打开网页版](https://lililili-yuki.github.io/lu/) · [Android 安装包与发布记录](https://github.com/Lililili-Yuki/lu/releases) · [APK 构建进度](https://github.com/Lililili-Yuki/lu/actions/workflows/android-apk.yml)
+[打开网页版](https://lililili-yuki.github.io/lu/) · [下载 Android APK](https://github.com/Lililili-Yuki/lu/releases/download/android-v0.1.0-preview/deer-days-0.1.0-preview.apk) · [发布记录](https://github.com/Lililili-Yuki/lu/releases) · [APK 构建进度](https://github.com/Lililili-Yuki/lu/actions/workflows/android-apk.yml)
 
 ## 功能
 
@@ -16,7 +16,7 @@
 
 ## Android 预览版
 
-Android 工程和自动构建流程位于本仓库，构建通过后会将 APK 与 SHA-256 校验文件发布到 [Releases](https://github.com/Lililili-Yuki/lu/releases)。
+Android 0.1.0 预览版已发布，APK 与 SHA-256 校验文件可在 [发布页](https://github.com/Lililili-Yuki/lu/releases/tag/android-v0.1.0-preview) 下载。已通过编译、Android Lint 和 APK 签名校验。Android 工程和自动构建流程位于本仓库。
 
 支持 Android 6.0 及以上。应用内置网页资源，离线可使用计时、打卡和记录查看；真人匹配需要联网。手机应用与浏览器中的数据各自保存，不会自动同步。
 
